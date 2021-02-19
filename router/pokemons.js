@@ -1,6 +1,5 @@
 import express from 'express'
 import Pokemon from '../models/pokemon.js'
-import fetch from 'node-fetch'
 
 const router = express.Router()
 
@@ -20,20 +19,19 @@ router.get('/read_detail_pokemon/:id', async (req, res) => {
       const detail = await Pokemon.findById({ _id: req.params.id }).exec()
       res.status(200).json(detail)
    } catch (error) {
-      console.log(error)
+
+      res.staus()
    }
 })
 
 router.post('/create_pokemon', async (req, res) => {
     try {
-      const data = await fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-      const api = await data.json()
      const pokemonBody = await new Pokemon({ 
-             name: api.name,
-             height: api.height,
-             weight: api.weight,
-             abilities: api.abilities,
-             held_items: api.held_items,
+             name: req.body.name,
+             height: req.body.height,
+             weight: req.body.weight,
+             abilities: req.body.abilities,
+             held_items: req.body.held_items,
        })
            await pokemonBody.save()
            res.status(201).json(pokemonBody)
@@ -67,10 +65,10 @@ router.post('/create_pokemon', async (req, res) => {
  router.put('/update_pokemon/:id', async (req, res) => {
     try {
       const update = await Pokemon.findByIdAndUpdate( req.params.id, req.body, { new: true } )
-      res.staus(200).json(update)
+      res.staus(201).json(update)
    }
     catch (e) {
-      res.json({ mes: 'Not found Pokemon :('})
+      res.json({ mes: 'Not found ID'})
       console.log(e)
     }
  })

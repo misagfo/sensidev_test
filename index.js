@@ -1,30 +1,22 @@
 import express from 'express'
-import bodyParcer from 'body-parser'
+import bodyParser from 'body-parser'
 import pokemons from './router/pokemons.js'
 import populate from './router/populate.js'
-import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import connectDB from './config/db.js'
+
+dotenv.config({path: './config/connect.env'})
+
+connectDB()
 
 const app = express()
 
-app.use(bodyParcer.json())
+app.use(bodyParser.json())
 
 app.use('/', pokemons)
 app.use('/', populate)
 
+const PORT = process.env.PORT || 5000
 
-async function start() {
-    try {
-        await mongoose.connect("mongodb+srv://misa:misa123@cluster0.mewny.mongodb.net/pokemon?retryWrites=true&w=majority", {
-           useNewUrlParser: true,
-           useCreateIndex: true,
-           useUnifiedTopology: true 
-        }).then(() => console.log('Data Base OK'))
-          app.listen(3000, () => console.log('server run'))
-    } catch (e) {
-        console.log(e, 'Server error')
-    }
-}
-
-start()
-
+app.listen(PORT, console.log(`Server run ${process.env.PORT}`))
 

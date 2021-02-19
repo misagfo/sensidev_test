@@ -26,14 +26,7 @@ const Pokemon = new mongoose.Schema({
         }
     }],
 
-    held_items: [{
-        _id: false,
-        item: {
-            name: { type: String },
-            url: { type: String }
-        }
-        
-    }]
+ 
  })
 
 export default mongoose.model('Pokemons', Pokemon)
