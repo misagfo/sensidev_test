@@ -23,10 +23,22 @@ const Pokemon = new mongoose.Schema({
             url: { type: String },
             slot: { type: Number },
             hidden: { type: Boolean }
-        }
+        },
+
+     is_hidden: {type: Boolean},
+     slot: {type: Number},
+
     }],
 
- 
+   
+    held_items: {
+        _id: false,
+        item: {
+            name: { type: String },
+            url: { type: String }
+        }
+        
+    }
  })
 
-export default mongoose.model('Pokemons', Pokemon)
+export default mongoose.model('Pokemon', Pokemon)

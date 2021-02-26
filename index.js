@@ -1,7 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import pokemons from './router/pokemons.js'
-import populate from './router/populate.js'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 
@@ -14,7 +13,7 @@ const app = express()
 app.use(bodyParser.json())
 
 app.use('/', pokemons)
-app.use('/', populate)
+
 
 const PORT = process.env.PORT || 5000
 
